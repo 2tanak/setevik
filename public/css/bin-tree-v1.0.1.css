@@ -1,0 +1,300 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.bin-tree ul {
+    padding-top: 20px;
+    position: relative;
+    text-align: center;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+}
+.bin-tree>ul>li>ul {
+    padding-top: 40px;
+}
+.bin-tree>ul>li>ul::before {
+    height: 40px;
+}
+.bin-tree>ul>li {
+    /*min-width: 630px;*/
+    /*min-width: 1120px;*/
+    min-width: 1100px;
+    display: inline-block;
+    float: none;
+}
+.bin-tree li {
+    float: left;
+    text-align: center;
+    list-style-type: none;
+    position: relative;
+    padding: 20px 5px 0 5px;
+    width:50%;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+}
+
+/*We will use ::before and ::after to draw the connectors*/
+
+.bin-tree li::before,
+.bin-tree li::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 50%;
+    border-top: 1px solid #ccc;
+    width: 50%;
+    height: 20px;
+}
+
+.bin-tree li::after {
+    right: auto;
+    left: 50%;
+    border-left: 1px solid #ccc;
+}
+
+/*We need to remove left-right connectors from elements without
+any siblings*/
+
+.bin-tree li:only-child::after,
+.bin-tree li:only-child::before {
+    display: none;
+}
+
+/*Remove space from the top of single children*/
+
+.bin-tree li:only-child {
+    padding-top: 0;
+}
+
+/*Remove left connector from first child and
+right connector from last child*/
+
+.bin-tree li:first-child::before,
+.bin-tree li:last-child::after {
+    border: 0 none;
+}
+
+/*Adding back the vertical connector to the last nodes*/
+
+.bin-tree li:last-child::before {
+    border-right: 1px solid #ccc;
+    border-radius: 0 5px 0 0;
+    -webkit-border-radius: 0 5px 0 0;
+    -moz-border-radius: 0 5px 0 0;
+}
+
+.bin-tree li:first-child::after {
+    border-radius: 5px 0 0 0;
+    -webkit-border-radius: 5px 0 0 0;
+    -moz-border-radius: 5px 0 0 0;
+}
+
+/*Time to add downward connectors from parents*/
+
+.bin-tree ul ul::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border-left: 1px solid #ccc;
+    width: 0;
+    height: 20px;
+}
+
+.bin-tree li a {
+    text-decoration: none;
+    color: #666;
+    font-family: arial, verdana, tahoma;
+    font-size: 11px;
+    display: inline-block;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+}
+.bin-tree ul ul ul a {
+    font-size: 10px;
+}
+.bin-tree li a.plus {
+    border:1px solid #ccc;
+    width: 56px;
+    height: 56px;
+    border-radius: 100%;
+    font-family:"Times New Roman";
+    font-size: 35px;
+    line-height: 54px;
+}
+.bin-tree ul ul ul li a.plus {
+    /*width: 46px;*/
+    /*height: 46px;*/
+    /*font-size: 31px;*/
+    /*line-height: 45px;*/
+    width: 56px;
+    height: 56px;
+    font-size: 31px;
+    line-height: 56px;
+}
+.bin-tree li a.plus:hover {
+    border:1px solid #cc8960;
+}
+.bin-tree li a.lock {
+    border:1px solid #ccc;
+    width: 56px;
+    height: 56px;
+    border-radius: 100%;
+    font-family:"Times New Roman";
+    font-size: 24px;
+    line-height: 54px;
+}
+.bin-tree ul ul ul li a.lock {
+    /*width: 46px;*/
+    /*height: 46px;*/
+    /*font-size: 20px;*/
+    /*line-height: 45px;*/
+    width: 56px;
+    height: 56px;
+    font-size: 30px;
+    line-height: 56px;
+}
+.bin-tree li a.lock:hover {
+    border:1px solid #cc8960;
+    cursor: not-allowed;
+}
+/*Time for some hover effects*/
+
+/*We will apply the hover effect the the lineage of the element also*/
+
+.bin-tree li a:hover,
+.bin-tree li a:hover+ul li a {
+    color: #cc8960;
+}
+
+/*Connector styles on hover*/
+
+.bin-tree li .item:hover+ul li::after,
+.bin-tree li .item:hover+ul li::before,
+.bin-tree li .item:hover+ul::before,
+.bin-tree li .item:hover+ul ul::before {
+    border-color: #cc8960;
+}
+
+/*Thats all. I hope you enjoyed it.
+Thanks :)*/
+.bin-tree .item {
+    /*width: 120px;*/
+    width: 240px;
+    display: inline-block;
+}
+.bin-tree .item.item-disabled {
+    opacity:.5;
+}
+.bin-tree .item.item-standart img {
+    border-color:rgba(0, 102, 204, 1);
+}
+.bin-tree .item.item-standard img {
+    border-color:rgba(0, 102, 204, 1);
+}
+.bin-tree .item.item-vip img {
+    border-color:rgba(234, 203, 32, 1);
+
+    /*border-color:rgba(0, 0, 255, 0.43);*/
+}
+.bin-tree .item.item-premium img {
+    /*border-color:rgba(198, 35, 35, 0.43);*/
+    border-color:rgba(0, 153, 0, 1);
+}
+.bin-tree ul ul ul ul .item {
+    /*width: 60px;*/
+    width: 120px;
+}
+.bin-tree .item img {
+    border-radius: 50%;
+    width: 50px;
+    border: 3px solid rgba(0, 0, 0, 0.14);
+    box-sizing: content-box;
+}
+.bin-tree ul ul ul .item img {
+    /*width: 40px;*/
+    width: 50px;
+}
+.bin-tree .img-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 6px;
+    padding-bottom: 16px;
+}
+
+.bin-tree .img-wrapper::before,
+.bin-tree .img-wrapper::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    border-radius: 100%;
+    background: red;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.3);
+    transform: translateX(-50%);
+}
+.bin-tree .img-wrapper::before {
+    margin-left: 3px;
+}
+.bin-tree .img-wrapper::after {
+    margin-left: -3px;
+}
+.bin-tree .img-wrapper.active::before,
+.bin-tree .img-wrapper.active::after {
+    background: rgba(0, 153, 0, 1);
+}
+.bin-tree .info {
+    height: 20px;
+    border-bottom: 1px solid #ccc;
+    width: 70%;
+    margin: -18px auto 0;
+}
+.bin-tree .info .info-left,
+.bin-tree .info .info-right {
+    float: left;
+    width: 50%;
+}
+.bin-tree .info .info-left {
+    text-align: left;
+}
+.bin-tree .info .info-right {
+    text-align: right;
+}
+
+/* ----------------------------------- ADDITIONAL (v.1.0.1) ----------------------------------- */
+.bin-tree .item img {
+    border-color: red;
+}
+.bin-tree .item.active img {
+    border-color: green;
+}
+.bin-tree {
+    padding-top: 10px;
+}
+img.media-object {
+    max-height: 60px;
+}
+ul.last-items {
+    padding: 5px;
+}
+ul.last-items hr {
+    border-top: 2px solid #d9d9d9
+}
+.binary-missed-money {
+    color: red;
+}
+.binary-info-wrapper {
+    padding: 0 20px;
+}
+.tree-title:hover {
+    cursor: default;
+}
